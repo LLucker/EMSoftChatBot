@@ -22,14 +22,18 @@ public class ChatBot extends TelegramLongPollingBot {
 
     public static void main(String[] args) {
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
+            Programa myFrame = new Programa();
+            myFrame.setVisible(true);
+            myFrame.setStatus("Inicializando...");
         try {
             telegramBotsApi.registerBot(new ChatBot());
-
-            Programa Frame = new Programa();
-            Frame.setVisible(true);
         } catch (TelegramApiException e) {
             BotLogger.error(LOGTAG, e);
         }
+        finally{
+            myFrame.setStatus("Online");
+        }
+            
     }
 
     @Override
@@ -49,12 +53,16 @@ public class ChatBot extends TelegramLongPollingBot {
                 //checarPergunta(mensagem)
                 if ((mensagem.contains("bom dia".toLowerCase())) ||
                     (mensagem.contains("boa tarde".toLowerCase()))||
-                    (mensagem.contains("boa noite".toLowerCase()))
+                    (mensagem.contains("boa noite".toLowerCase())) || 
+                    (mensagem.contains("oi".toLowerCase())) ||
+                    (mensagem.contains("ola".toLowerCase())) ||
+                    (mensagem.contains("olá".toLowerCase()))
                    ) {
                     sendMessageRequest.setText("Olá, "+message.getChat().getFirstName()+
                                                 " qual é sua duvida?");
                     enviarMensagem(sendMessageRequest);
                 }
+                
                 else {
                     sendMessageRequest.setText("Não sei responder isso: " + message.getText());
                     enviarMensagem(sendMessageRequest);

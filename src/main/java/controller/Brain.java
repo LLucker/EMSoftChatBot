@@ -5,8 +5,23 @@
  */
 package controller;
 
+import java.util.List;
+import model.dao.PerguntaDAO;
+import model.domain.Pergunta;
+
 
 public class Brain {
     
     
+public boolean consultarPergunta(String frase){
+    List<Pergunta> pergunta;
+    PerguntaDAO pergDAO = new PerguntaDAO();
+    pergunta = pergDAO.obterPergunta(frase);
+    if (pergunta.isEmpty()){
+        return false;
+    }
+ return true;
 }
+
+}
+
