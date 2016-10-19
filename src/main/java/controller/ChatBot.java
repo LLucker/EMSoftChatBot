@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.Arrays;
+import java.util.List;
 import javax.swing.JFrame;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
@@ -46,18 +48,22 @@ public class ChatBot extends TelegramLongPollingBot {
         if (update.hasMessage()) {
             Message message = update.getMessage();
 
-            if (message.hasText()) {
+             if (message.hasText()) {
                 SendMessage sendMessageRequest = new SendMessage();
                 sendMessageRequest.setChatId(message.getChat().getId().toString());
                 String mensagem = message.getText();
                 //checarPergunta(mensagem)
-                if ((mensagem.contains("bom dia".toLowerCase())) ||
-                    (mensagem.contains("boa tarde".toLowerCase()))||
-                    (mensagem.contains("boa noite".toLowerCase())) || 
-                    (mensagem.contains("oi".toLowerCase())) ||
-                    (mensagem.contains("ola".toLowerCase())) ||
-                    (mensagem.contains("olá".toLowerCase()))
-                   ) {
+                List<String> iniciar = Arrays.asList("bom dia", "boa tarde", "boa noite", "oi", "ola", "olá", "hi", "hello");
+                if (mensagem.equals("/info")){
+                    sendMessageRequest.setText("Nome: "+message.getChat().getFirstName()+
+                			"\nSobre nome: "+message.getChat().getLastName()+
+                			"\nTitulo: "+message.getChat().getTitle()+
+                			"\nUser: "+message.getChat().getUserName()+
+                			"\nHashCode: "+message.getChat().hashCode()+
+                			"\nIdTelegram: "+message.getChat().getId());
+                    enviarMensagem(sendMessageRequest);
+                }
+                else if (iniciar.contains(mensagem.toLowerCase())) {
                     sendMessageRequest.setText("Olá, "+message.getChat().getFirstName()+
                                                 " qual é sua duvida?");
                     enviarMensagem(sendMessageRequest);
