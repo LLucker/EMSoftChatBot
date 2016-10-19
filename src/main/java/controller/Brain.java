@@ -11,7 +11,7 @@ import model.domain.Pergunta;
 
 /**
  * Classe de brain
- * @author raphael
+ * @author luan
  */
 public class Brain {
     

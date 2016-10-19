@@ -1,8 +1,5 @@
 package view;
 
-import controller.ChatBot;
-import org.telegram.telegrambots.api.methods.send.SendMessage;
-
 public class Programa extends javax.swing.JFrame {
    
     public Programa() {
