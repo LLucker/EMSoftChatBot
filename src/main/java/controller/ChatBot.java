@@ -14,17 +14,21 @@ import view.Programa;
 
 /**
  *
+ *             sendMessageRequest.setChatId("163294310");
+            sendMessageRequest.setText("Estou Funcionando");
+            enviarMensagem(sendMessageRequest); 
+ * 
+ * 
  * @author luan
  */
 public class ChatBot extends TelegramLongPollingBot {
-
+    private static final Programa myFrame = new Programa();
     private static final String LOGTAG = "MAIN";
     public static final String BOT_USERNAME = "EMSoft_bot";
     public static final String BOT_TOKEN = "278853398:AAFedRwU6Z6Qm5n4OY43Itwh0_VDgjtreZw";
 
     public static void main(String[] args) {
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
-            Programa myFrame = new Programa();
             myFrame.setVisible(true);
             myFrame.setStatus("Inicializando...");
         try {
@@ -33,7 +37,7 @@ public class ChatBot extends TelegramLongPollingBot {
             BotLogger.error(LOGTAG, e);
         }
         finally{
-            myFrame.setStatus("Online");
+            myFrame.setStatus("Online");           
         }
             
     }
@@ -53,10 +57,11 @@ public class ChatBot extends TelegramLongPollingBot {
                 sendMessageRequest.setChatId(message.getChat().getId().toString());
                 String mensagem = message.getText();
                 //checarPergunta(mensagem)
+                myFrame.setMensagem(message.getChat().getFirstName()+":"+mensagem+"\n");
                 List<String> iniciar = Arrays.asList("bom dia", "boa tarde", "boa noite", "oi", "ola", "olá", "hi", "hello");
                 if (mensagem.equals("/info")){
                     sendMessageRequest.setText("Nome: "+message.getChat().getFirstName()+
-                			"\nSobre nome: "+message.getChat().getLastName()+
+                			"\nSobrenome: "+message.getChat().getLastName()+
                 			"\nTitulo: "+message.getChat().getTitle()+
                 			"\nUser: "+message.getChat().getUserName()+
                 			"\nHashCode: "+message.getChat().hashCode()+
@@ -82,7 +87,7 @@ public class ChatBot extends TelegramLongPollingBot {
         try {
             sendMessage(sendMessageRequest);
         }catch (TelegramApiException e) {
-                    //do some error handling
+                    //
                 }
     }
     
