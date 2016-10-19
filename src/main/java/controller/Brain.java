@@ -10,7 +10,7 @@ import model.dao.PerguntaDAO;
 import model.domain.Pergunta;
 
 /**
- * 
+ * Classe de brain
  * @author raphael
  */
 public class Brain {
