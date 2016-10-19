@@ -9,7 +9,10 @@ import java.util.List;
 import model.dao.PerguntaDAO;
 import model.domain.Pergunta;
 
-
+/**
+ * 
+ * @author raphael
+ */
 public class Brain {
     
     
