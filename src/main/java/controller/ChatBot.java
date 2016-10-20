@@ -17,7 +17,7 @@ import view.Programa;
 
 /**
  * @version 1.0
- * @author luan
+ * @author luan sena
  */
 public class ChatBot extends TelegramLongPollingBot {
 
