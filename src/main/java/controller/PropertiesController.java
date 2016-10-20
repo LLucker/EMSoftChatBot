@@ -15,7 +15,7 @@ import model.domain.BotTelegram;
 
 /**
  * Classe de controle e gerenciamento do arquivo de properties do sistema
- *
+ * @see Properties
  * @since 1.0
  * @version 1.0
  * @author raphael
