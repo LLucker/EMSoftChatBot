@@ -18,7 +18,6 @@ public class PerguntaDAO {
     }
 
     public void incluir(Pergunta pergunta) {
-
         this.manager.getTransaction().begin();
         this.manager.persist(pergunta);
         this.manager.getTransaction().commit();
@@ -66,11 +65,22 @@ public class PerguntaDAO {
         String jpql = "from Pergunta p  where p.frase like :pFrase";
         TypedQuery<Pergunta> query = this.manager.createQuery(jpql, Pergunta.class);
 
-        query.setParameter(":pFrase", frase + "%");
+        query.setParameter(":pFrase", "%"+frase+"%");
         // EXECUTA A CONSULTA E RETORNA UMA LISTA
         retorno = query.getResultList();
 
         return retorno;
+       
+    }
+    public Pergunta consultaPergunta(String frase) {
+        Pergunta retorno = null;
+        String jpql = "from Pergunta p  where p.frase like :pFrase";
+        TypedQuery<Pergunta> query = this.manager.createQuery(jpql, Pergunta.class);
+
+        query.setParameter(":pFrase", "%"+frase+"%");
+        // EXECUTA A CONSULTA E RETORNA UMA LISTA
+        retorno = query.getSingleResult();
+        return retorno;     
     }
 
 }

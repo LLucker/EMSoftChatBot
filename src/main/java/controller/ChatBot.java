@@ -62,35 +62,49 @@ public class ChatBot extends TelegramLongPollingBot {
 
             //Checa se a mensagem recebida é do tipo text
             if (message.hasText()) {
-                SendMessage sendMessageRequest = new SendMessage();
-
-                //Define o ID do chat o qual disparou solicitação de resposta
-                sendMessageRequest.setChatId(message.getChat().getId().toString());
                 String mensagem = message.getText();
-                //checarPergunta(mensagem)
-                MYFRAME.setMensagem(message.getChat().getFirstName() + ":" + mensagem + "\n");
+                String nome = message.getChat().getFirstName();
+                SendMessage sendMessageRequest = new SendMessage();
+                sendMessageRequest.setChatId(message.getChatId().toString());
+                                //checarPergunta(mensagem)
+                MYFRAME.setMensagem(nome+":"+mensagem + "\n");
                 List<String> iniciar = Arrays.asList("bom dia", "boa tarde", "boa noite", "oi", "ola", "olá", "hi", "hello");
+                //Inicio comandos
                 if (mensagem.equals("/info")) {
-                    sendMessageRequest.setText("Nome: " + message.getChat().getFirstName()
-                            + "\nSobrenome: " + message.getChat().getLastName()
-                            + "\nTitulo: " + message.getChat().getTitle()
-                            + "\nUser: " + message.getChat().getUserName()
-                            + "\nHashCode: " + message.getChat().hashCode()
-                            + "\nIdTelegram: " + message.getChat().getId());
-                    enviarMensagem(sendMessageRequest);
-                } else if (iniciar.contains(mensagem.toLowerCase())) {
-                    sendMessageRequest.setText("Olá, " + message.getChat().getFirstName()
-                            + " qual é sua duvida?");
+                    comandoInfo(sendMessageRequest, message);
+                }
+                else if (mensagem.equals("/start")) {
+                    comandoStart(sendMessageRequest, message);
+                }//Fim comandos
+                //Mensagem inicial
+                else if (iniciar.contains(mensagem.toLowerCase())||(mensagem.equals("/start"))) {
+                    sendMessageRequest.setText("Olá, "+nome+" qual é sua duvida?");
                     enviarMensagem(sendMessageRequest);
                 } else {
-                    sendMessageRequest.setText("Não sei responder isso: " + message.getText());
+                    //Resposta padrão
+                    sendMessageRequest.setText("Não sei responder isso: " + mensagem);
                     enviarMensagem(sendMessageRequest);
                 }
 
             }
         }
     }
-
+    public void comandoInfo(SendMessage sendMessageRequest, Message message){
+        sendMessageRequest.setText("Nome: " + message.getChat().getFirstName()
+                            + "\nSobrenome: " + message.getChat().getLastName()
+                            + "\nTitulo: " + message.getChat().getTitle()
+                            + "\nUser: " + message.getChat().getUserName()
+                            + "\nHashCode: " + message.getChat().hashCode()
+                            + "\nIdTelegram: " + message.getChat().getId());
+        enviarMensagem(sendMessageRequest);
+    }
+    public void comandoStart(SendMessage sendMessageRequest, Message message){
+        sendMessageRequest.setText("Olá " + message.getChat().getFirstName()
+                            + ", é uma prazer falar como você, diga sua dúvida ou digite"
+                            + " '/' para ver os comandos disponíveis");
+        enviarMensagem(sendMessageRequest);
+    }
+    
     public void enviarMensagem(SendMessage sendMessageRequest) {
         try {
             sendMessage(sendMessageRequest);

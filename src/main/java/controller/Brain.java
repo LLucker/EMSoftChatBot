@@ -5,9 +5,10 @@
  */
 package controller;
 
-import java.util.List;
 import model.dao.PerguntaDAO;
+import model.dao.RespostaDAO;
 import model.domain.Pergunta;
+import model.domain.Resposta;
 
 /**
  * Classe de brain
@@ -16,15 +17,26 @@ import model.domain.Pergunta;
 public class Brain {
     
     
-public boolean consultarPergunta(String frase){
-    List<Pergunta> pergunta;
+public String consultarPergunta(String frase){
+    Pergunta pergunta;
     PerguntaDAO pergDAO = new PerguntaDAO();
-    pergunta = pergDAO.obterPergunta(frase);
-    if (pergunta.isEmpty()){
-        return false;
+    pergunta = pergDAO.consultaPergunta(frase);
+    
+    if (pergunta == null){
+        pergunta = new Pergunta(frase);
+        pergDAO.incluir(pergunta);
+        pergDAO.incluir(pergunta);
+        return "Bem... nunca me perguntaram isso!\nnão sei responder agora, mas vou estudar isso, me pergunte novamente em 48h ;)";
     }
- return true;
-}
+    else if (pergunta.getId_pergunta()>0){
+        Resposta resposta = null;
+        RespostaDAO respDAO = new RespostaDAO();
+        resposta = respDAO.obter(pergunta.getId_pergunta());
+        
+    return resposta.getTexto().toString();
+    }
+    return "WTF";
+} 
 
 }
 

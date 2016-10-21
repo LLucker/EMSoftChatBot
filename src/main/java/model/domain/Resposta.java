@@ -5,29 +5,36 @@
  */
 package model.domain;
 
+import java.sql.Blob;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 /**
  *
  * @author luan
  */
 @Entity
-@Table(name = "tab_clientes")
+@Table(name = "respostas")
 public class Resposta {
-    @Id
-     private int id_resposta;
+    @Id @GeneratedValue(strategy=GenerationType.AUTO)
+    private int id_resposta;
+    @Lob
+    private java.sql.Blob texto;
     
-    private String texto;
-
-    public Resposta(int id_resposta, String texto) {
+    //Construtores
+    public Resposta(int id_resposta, Blob texto) {
         this.id_resposta = id_resposta;
         this.texto = texto;
-    }
+    }  
 
     public Resposta() {
     }
+    
+    //Get and Setters
 
     public int getId_resposta() {
         return id_resposta;
@@ -37,4 +44,11 @@ public class Resposta {
         this.id_resposta = id_resposta;
     }
 
+    public Blob getTexto() {
+        return texto;
+    }
+
+    public void setTexto(Blob texto) {
+        this.texto = texto;
+    }
 }

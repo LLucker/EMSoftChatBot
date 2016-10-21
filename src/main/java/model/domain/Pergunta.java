@@ -5,29 +5,42 @@
  */
 package model.domain;
 
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author luan
  */
 @Entity
-@Table(name = "tab_clientes")
+@Table(name = "perguntas")
 public class Pergunta {
-    @Id
+    @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private int id_pergunta;
-    private String frase;
+    
+    private String texto;
+    
     private String tema;
-
+    @ManyToOne
+    private List<Resposta> resposta;
+    
+    //Construtores
     public Pergunta() {
     }
+    public Pergunta(String texto) {
+        this.texto=texto;
+    }
 
-    public Pergunta(int id_pergunta, String frase, String tema) {
+    public Pergunta(int id_pergunta, String texto, String tema, List<Resposta> resposta) {
         this.id_pergunta = id_pergunta;
-        this.frase = frase;
+        this.texto = texto;
         this.tema = tema;
+        this.resposta = resposta;
     }
 
     public int getId_pergunta() {
@@ -39,11 +52,11 @@ public class Pergunta {
     }
 
     public String getFrase() {
-        return frase;
+        return texto;
     }
 
     public void setFrase(String frase) {
-        this.frase = frase;
+        this.texto = frase;
     }
 
     public String getTema() {
@@ -52,6 +65,14 @@ public class Pergunta {
 
     public void setTema(String tema) {
         this.tema = tema;
+    }
+
+    public List<Resposta> getResposta() {
+        return resposta;
+    }
+
+    public void setResposta(List<Resposta> resposta) {
+        this.resposta = resposta;
     }
     
 }
