@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import model.dao.PerguntaDAO;
@@ -25,8 +20,8 @@ public String consultarPergunta(String frase){
     if (pergunta == null){
         pergunta = new Pergunta(frase);
         pergDAO.incluir(pergunta);
-        pergDAO.incluir(pergunta);
-        return "Bem... nunca me perguntaram isso!\nnão sei responder agora, mas vou estudar isso, me pergunte novamente em 48h ;)";
+        return "Bem... nunca me perguntaram isso!\nnão sei responder agora,"
+                + " mas vou estudar isso, me pergunte novamente em 48h ;)";
     }
     else if (pergunta.getId_pergunta()>0){
         Resposta resposta = null;

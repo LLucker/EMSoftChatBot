@@ -109,12 +109,8 @@ public class ChatBot extends TelegramLongPollingBot {
     }
     
     public void enviarMensagem(SendMessage sendMessageRequest) {
-        try {
-            sendMessage(sendMessageRequest);
-        } catch (TelegramApiException e) {
-            //
-
-        }
+        try { sendMessage(sendMessageRequest); }
+        catch (TelegramApiException e) { /**/ }
     }
 
     @Override
