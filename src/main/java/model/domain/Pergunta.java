@@ -5,7 +5,6 @@
  */
 package model.domain;
 
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,7 +26,7 @@ public class Pergunta {
     
     private String tema;
     @ManyToOne
-    private List<Resposta> resposta;
+    private Resposta resposta;
     
     //Construtores
     public Pergunta() {
@@ -36,7 +35,7 @@ public class Pergunta {
         this.texto=texto;
     }
 
-    public Pergunta(int id_pergunta, String texto, String tema, List<Resposta> resposta) {
+    public Pergunta(int id_pergunta, String texto, String tema, Resposta resposta) {
         this.id_pergunta = id_pergunta;
         this.texto = texto;
         this.tema = tema;
@@ -67,11 +66,11 @@ public class Pergunta {
         this.tema = tema;
     }
 
-    public List<Resposta> getResposta() {
+    public Resposta getResposta() {
         return resposta;
     }
 
-    public void setResposta(List<Resposta> resposta) {
+    public void setResposta(Resposta resposta) {
         this.resposta = resposta;
     }
     

@@ -12,7 +12,7 @@ import model.domain.Resposta;
 public class Brain {
     
     
-public String consultarPergunta(String frase){
+public static String consultarPergunta(String frase){
     Pergunta pergunta;
     PerguntaDAO pergDAO = new PerguntaDAO();
     pergunta = pergDAO.consultaPergunta(frase);
@@ -21,7 +21,10 @@ public String consultarPergunta(String frase){
         pergunta = new Pergunta(frase);
         pergDAO.incluir(pergunta);
         return "Bem... nunca me perguntaram isso!\nnão sei responder agora,"
-                + " mas vou estudar isso, me pergunte novamente em 48h ;)";
+                + " mas vou estudar isso, me pergunte novamente depois ;)";
+    }
+    else if((pergunta.getResposta() == null)){
+        return "Já estou estudando isso!";        
     }
     else if (pergunta.getId_pergunta()>0){
         Resposta resposta = null;
@@ -32,6 +35,5 @@ public String consultarPergunta(String frase){
     }
     return "WTF";
 } 
-
 }
 

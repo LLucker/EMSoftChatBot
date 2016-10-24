@@ -10,7 +10,6 @@ import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
-import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 import org.telegram.telegrambots.logging.BotLogger;
@@ -51,11 +50,7 @@ public class ChatBot extends TelegramLongPollingBot {
         return ChatBot.bot.getToken();
     }
 
-    /**
-     * Trata Notificação recebida pela API
-     *
-     * @param update
-     */
+   //Executa quando o bot recebe uma mensagem de texto
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage()) {
@@ -67,23 +62,28 @@ public class ChatBot extends TelegramLongPollingBot {
                 String nome = message.getChat().getFirstName();
                 SendMessage sendMessageRequest = new SendMessage();
                 sendMessageRequest.setChatId(message.getChatId().toString());
-                //checarPergunta(mensagem)
+                
                 MYFRAME.setMensagem(">> "+nome+":"+mensagem + "\n");
-                List<String> iniciar = Arrays.asList("bom dia", "boa tarde", "boa noite", "oi", "ola", "olá", "hi", "hello");
+                List<String> iniciar = Arrays.asList("bom dia", "boa tarde", "boa noite", "oi",
+                                                     "ola", "olá", "hi", "hello");
+
                 //Inicio comandos
                 if (mensagem.equals("/info")) {
                     comandoInfo(sendMessageRequest, message);
                 }
                 else if (mensagem.equals("/start")) {
                     comandoStart(sendMessageRequest, message);
-                }//Fim comandos
+                }
+                //Fim comandos
+
                 //Mensagem inicial
                 else if (iniciar.contains(mensagem.toLowerCase())) {
                     sendMessageRequest.setText("Olá, "+nome+" qual é sua duvida?");
                     enviarMensagem(sendMessageRequest);
                 } else {
                     //Resposta padrão
-                    sendMessageRequest.setText("Não sei responder isso :("/* + mensagem*/);
+                    String resposta = Brain.consultarPergunta(mensagem);
+                    sendMessageRequest.setText(resposta);
                     enviarMensagem(sendMessageRequest);
                 }
 
@@ -103,8 +103,6 @@ public class ChatBot extends TelegramLongPollingBot {
         sendMessageRequest.setText("Olá " + message.getChat().getFirstName()
                             + ",\né um prazer falar com você, diga sua dúvida ou digite"
                             + " ''/'' para ver os comandos disponíveis");
-        
-        
         enviarMensagem(sendMessageRequest);
     }
     
