@@ -8,6 +8,7 @@ import model.domain.Resposta;
 /**
  * Classe de brain
  * @author luan
+ * Falta testar a implementação
  */
 public class Brain {
     
