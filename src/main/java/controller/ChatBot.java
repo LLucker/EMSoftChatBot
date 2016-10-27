@@ -16,7 +16,7 @@ import org.telegram.telegrambots.logging.BotLogger;
 import view.Programa;
 
 /**
- * @version 1.0
+ * @version 1.5
  * @author luan sena
  */
 public class ChatBot extends TelegramLongPollingBot {
