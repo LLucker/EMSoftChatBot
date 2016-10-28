@@ -3,6 +3,7 @@ package model.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import model.domain.Pergunta;
@@ -73,14 +74,16 @@ public class PerguntaDAO {
        
     }
     public Pergunta consultaPergunta(String frase) {
+        try{
         Pergunta retorno = null;
-        String jpql = "from Pergunta p  where p.frase like :pFrase";
+        String jpql = "from Pergunta p  where p.texto like :pFrase";
         TypedQuery<Pergunta> query = this.manager.createQuery(jpql, Pergunta.class);
-
-        query.setParameter(":pFrase", "%"+frase+"%");
+        query.setParameter("pFrase", "%"+frase+"%");
         // EXECUTA A CONSULTA E RETORNA UMA LISTA
         retorno = query.getSingleResult();
-        return retorno;     
+        return retorno;     }
+        catch(NoResultException nre){
+            return null;
+        }
     }
-
 }
