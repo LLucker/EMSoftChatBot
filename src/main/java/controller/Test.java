@@ -8,11 +8,10 @@ import java.util.Scanner;
  */
 public class Test {
     public static void main(String[] args) {
-        Brain brain = new Brain();
         Scanner ler = new Scanner(System.in);
         System.out.println("Digite uma duvida:");
         String duvida = ler.nextLine();
-        String resposta = brain.consultarPergunta(duvida);
+        String resposta = Brain.consultarPergunta(duvida);
         System.out.println(resposta);
     }
 }
