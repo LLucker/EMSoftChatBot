@@ -51,36 +51,26 @@ public class PerguntaDAO {
     }
 
     public List<Pergunta> obterTodos() {
-        List<Pergunta> retorno = null;
-
         String jpql = "from Pergunta p";
         TypedQuery<Pergunta> query = this.manager.createQuery(jpql, Pergunta.class);
-        retorno = query.getResultList();
+        List<Pergunta> retorno = query.getResultList();
 
         return retorno;
     }
 
-    public List<Pergunta> obterPergunta(String frase) {
-        List<Pergunta> retorno = null;
-
-        String jpql = "from Pergunta p  where p.frase like :pFrase";
+    public List<Pergunta> obterPerguntasSemResposta() {
+        String jpql = "from Pergunta p  where p.resposta is null";
         TypedQuery<Pergunta> query = this.manager.createQuery(jpql, Pergunta.class);
-
-        query.setParameter(":pFrase", "%"+frase+"%");
-        // EXECUTA A CONSULTA E RETORNA UMA LISTA
-        retorno = query.getResultList();
-
+        List<Pergunta> retorno = query.getResultList();
         return retorno;
        
     }
     public Pergunta consultaPergunta(String frase) {
         try{
-        Pergunta retorno = null;
         String jpql = "from Pergunta p  where p.texto like :pFrase";
         TypedQuery<Pergunta> query = this.manager.createQuery(jpql, Pergunta.class);
         query.setParameter("pFrase", "%"+frase+"%");
-        // EXECUTA A CONSULTA E RETORNA UMA LISTA
-        retorno = query.getSingleResult();
+        Pergunta retorno = query.getSingleResult();
         return retorno;     }
         catch(NoResultException nre){
             return null;
