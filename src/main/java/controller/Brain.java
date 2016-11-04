@@ -8,8 +8,6 @@ import model.domain.Resposta;
 
 /**
  * Principal classe de controle
- *
- * 
  */
 public class Brain {
 
@@ -47,6 +45,12 @@ public class Brain {
         PerguntaDAO pergDAO = new PerguntaDAO();
         List<Pergunta> perguntas = pergDAO.obterTodos();
     return perguntas;
+    }
+    //Pergunta por ID
+    public static Pergunta obterPerguntaPorID(Integer id_pergunta){
+        PerguntaDAO pergDAO = new PerguntaDAO();
+        Pergunta pergunta = pergDAO.obterPerguntaPorID(id_pergunta);
+    return pergunta;
     }
     //Retorna todas as perguntas cadastradas sem resposta
     public static List<Pergunta> obterPerguntasSemResposta(){

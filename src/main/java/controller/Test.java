@@ -3,7 +3,9 @@ package controller;
 import java.util.List;
 import java.util.Scanner;
 import jdk.nashorn.internal.objects.NativeArray;
+import model.dao.RespostaDAO;
 import model.domain.Pergunta;
+import model.domain.Resposta;
 
 /**
  *
@@ -56,5 +58,17 @@ public class Test {
         } catch (NullPointerException e) {
             System.out.println("\nNão existe Perguntas\n");
         }
+    }
+    public static void responder(){
+        System.out.println("Insira o ID da pergunta: ");
+        Scanner ler = new Scanner(System.in);
+        Integer id = ler.nextInt();
+        Pergunta pergunta = Brain.obterPerguntaPorID(id);
+        
+        System.out.println("Pergunta: "+ pergunta.getFrase());
+        String resp = ler.nextLine();
+        Resposta resposta = new Resposta(resp);
+        RespostaDAO respDAO = new RespostaDAO();
+        respDAO.incluir(resposta);
     }
 }

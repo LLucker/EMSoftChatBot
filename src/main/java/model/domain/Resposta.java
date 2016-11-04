@@ -31,7 +31,15 @@ public class Resposta {
         this.texto = texto;
     }  
 
+    public Resposta(Blob texto) {
+       this.texto = texto;
+    }  
+
     public Resposta() {
+    }
+
+    public Resposta(String resp) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     //Get and Setters

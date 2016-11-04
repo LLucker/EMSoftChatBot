@@ -76,4 +76,15 @@ public class PerguntaDAO {
             return null;
         }
     }
+    public Pergunta obterPerguntaPorID(Integer id_pergunta) {
+        try{
+        String jpql = "from Pergunta p  where p.id_pergunta = :id";
+        TypedQuery<Pergunta> query = this.manager.createQuery(jpql, Pergunta.class);
+        query.setParameter("id", id_pergunta);
+        Pergunta retorno = query.getSingleResult();
+        return retorno;     }
+        catch(NoResultException nre){
+            return null;
+        }
+    }
 }
