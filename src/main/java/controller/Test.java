@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.Blob;
 import java.util.List;
 import java.util.Scanner;
 import jdk.nashorn.internal.objects.NativeArray;
@@ -69,6 +70,13 @@ public class Test {
         String resp = ler.nextLine();
         Resposta resposta = new Resposta(resp);
         RespostaDAO respDAO = new RespostaDAO();
+        respDAO.incluir(resposta);
+    }
+    public static void incResposta(){ // não terminado
+        RespostaDAO respDAO = new RespostaDAO();
+        Scanner ler = new Scanner(System.in);
+        String texto = ler.nextLine();
+        Resposta resposta = new Resposta(texto);
         respDAO.incluir(resposta);
     }
 }

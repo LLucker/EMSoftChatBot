@@ -6,6 +6,7 @@
 package model.domain;
 
 import java.sql.Blob;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,24 +23,20 @@ import javax.persistence.Lob;
 public class Resposta {
     @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private int id_resposta;
-    @Lob
-    private java.sql.Blob texto;
+    @Column(length = 500, nullable=false)
+    private String texto;
     
     //Construtores
-    public Resposta(int id_resposta, Blob texto) {
+    public Resposta(int id_resposta, String texto) {
         this.id_resposta = id_resposta;
         this.texto = texto;
     }  
 
-    public Resposta(Blob texto) {
+    public Resposta(String texto) {
        this.texto = texto;
     }  
 
     public Resposta() {
-    }
-
-    public Resposta(String resp) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     //Get and Setters
@@ -52,11 +49,11 @@ public class Resposta {
         this.id_resposta = id_resposta;
     }
 
-    public Blob getTexto() {
+    public String getTexto() {
         return texto;
     }
 
-    public void setTexto(Blob texto) {
+    public void setTexto(String texto) {
         this.texto = texto;
     }
 }

@@ -15,11 +15,12 @@ public class RespostaDAO {
         this.manager = JPAUtil.getEntityManager();
     }
 
-    public void incluir(Resposta resposta) {
+    public Resposta incluir(Resposta resposta) {
 
         this.manager.getTransaction().begin();
         this.manager.persist(resposta);
         this.manager.getTransaction().commit();
+        return resposta;
     }
 
     public void fecharConexao() {
