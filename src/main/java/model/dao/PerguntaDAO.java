@@ -51,7 +51,7 @@ public class PerguntaDAO {
     }
 
     public List<Pergunta> obterTodos() {
-        String jpql = "from Pergunta p";
+        String jpql = "from Pergunta";
         TypedQuery<Pergunta> query = this.manager.createQuery(jpql, Pergunta.class);
         List<Pergunta> retorno = query.getResultList();
 

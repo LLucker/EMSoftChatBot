@@ -35,7 +35,7 @@ public class Programa extends javax.swing.JFrame {
 
         lbImagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/robocop.png"))); // NOI18N
 
-        btConfig.setText("-->");
+        btConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/settings.png"))); // NOI18N
         btConfig.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btConfigActionPerformed(evt);
@@ -59,7 +59,7 @@ public class Programa extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbStatus)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btConfig)))
+                        .addComponent(btConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         panelPrincipalLayout.setVerticalGroup(
@@ -67,12 +67,15 @@ public class Programa extends javax.swing.JFrame {
             .addGroup(panelPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(lbSinal)
-                        .addComponent(lbStatus))
-                    .addComponent(btConfig))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbImagem)
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addComponent(btConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbSinal)
+                            .addComponent(lbStatus))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                        .addComponent(lbImagem)))
                 .addContainerGap())
         );
 
@@ -88,14 +91,14 @@ public class Programa extends javax.swing.JFrame {
          * Bacalhau para dar auto-hide/show em Panel de Funcoes
          */
         if (!configAtiva) {
-            btConfig.setText("<--");
+            //btConfig.setText("<--");
             this.add(funcoes);
             funcoes.setVisible(true);
             this.setSize(750, 350);
             this.repaint();
             configAtiva = true;
         } else {
-            btConfig.setText("-->");
+            //btConfig.setText("-->");
             funcoes.setVisible(false);   
             this.setSize(300, 350);
             this.repaint();
@@ -105,14 +108,9 @@ public class Programa extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btConfig;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JLabel lbImagem;
     private javax.swing.JLabel lbSinal;
     private javax.swing.JLabel lbStatus;
-    private javax.swing.JLabel lblSinal;
-    private javax.swing.JLabel lblStatus;
     private javax.swing.JPanel panelPrincipal;
     // End of variables declaration//GEN-END:variables
 

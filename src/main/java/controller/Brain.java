@@ -55,7 +55,9 @@ public class Brain {
     return perguntassr;
     }
   
-    public static void responderPergunta(){
-        
+    public static void responderPergunta(Pergunta pergunta, Resposta resposta){
+        PerguntaDAO pergDAO = new PerguntaDAO();
+        pergunta.setResposta(resposta);
+        pergDAO.alterar(pergunta);
     }
 }
