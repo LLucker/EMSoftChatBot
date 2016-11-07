@@ -17,10 +17,9 @@ public class Brain {
     //Se não existir cadastra a pergunta
     //Se existir mas não tiver resposta retorna que já está cadastrado
     public static String consultarPergunta(String frase) {
-        Pergunta pergunta;
         PerguntaDAO pergDAO = new PerguntaDAO();
        //Consulta pergunta no BD
-        pergunta = pergDAO.consultaPergunta(frase);
+        Pergunta pergunta = pergDAO.consultaPergunta(frase);
        //Se não existir no BD
         if (pergunta == null) {
             pergunta = new Pergunta(frase);
@@ -32,17 +31,15 @@ public class Brain {
         } else if ((pergunta.getResposta() == null)) {
             return "Já estou estudando isso!";
         //Pergunta com resposta
-        } else if (pergunta.getId_pergunta() > 0) {
-            RespostaDAO respDAO = new RespostaDAO();
+        } else  {
            try{
-            Resposta resposta = respDAO.obterRespostaPorID(pergunta.getId_pergunta());
-            return resposta.getTexto();
+            return pergunta.getResposta().getTexto();
            }catch(NullPointerException e){
-               JOptionPane.showMessageDialog(null, "Pergunta não encontrada\n"+e.toString());
+               JOptionPane.showMessageDialog(null, "Pergunta Tem uma resopsta porem não foi possivel localizar\n"+e.toString());
            }
             
         }
-        return "WTF";
+        return " ";
     }
     
     //Retorna todas as perguntas cadastradas
@@ -50,6 +47,13 @@ public class Brain {
         PerguntaDAO pergDAO = new PerguntaDAO();
         List<Pergunta> perguntas = pergDAO.obterTodos();
     return perguntas;
+    }
+    
+    //Retorna todas as Respostas cadastradas
+    public static List<Resposta> obterTodasRespostas(){
+        RespostaDAO respDAO = new RespostaDAO();
+        List<Resposta> respostas = respDAO.obterTodos();
+    return respostas;
     }
     //Pergunta por ID
     public static Pergunta obterPerguntaPorID(Integer id_pergunta){
