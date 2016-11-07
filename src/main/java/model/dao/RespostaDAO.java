@@ -2,7 +2,9 @@ package model.dao;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+import model.domain.Pergunta;
 import model.domain.Resposta;
 
 public class RespostaDAO {
@@ -59,17 +61,16 @@ public class RespostaDAO {
         return retorno;
     }
 
-  /*  public Resposta obterResposta(String id_resposta) {
-       Resposta retorno;
-
-        String jpql = "from Resposta r  where r.id_resposta=:id";
+    public Resposta obterRespostaPorID(Integer id_resposta) {
+        try{
+        String jpql = "from Resposta p  where p.id_resposta = :id";
         TypedQuery<Resposta> query = this.manager.createQuery(jpql, Resposta.class);
-
-        query.setParameter(":id", id_resposta);
-        // EXECUTA A CONSULTA E RETORNA UMA LISTA
-        retorno = query.getSingleResult();
-
-        return retorno;
-    }*/
+        query.setParameter("id", id_resposta);
+        Resposta retorno = query.getSingleResult();
+        return retorno;     }
+        catch(NoResultException nre){
+            return null;
+        }
+    }
 
 }

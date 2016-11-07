@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.dao.PerguntaDAO;
 import model.dao.RespostaDAO;
 import model.domain.Pergunta;
@@ -33,9 +34,13 @@ public class Brain {
         //Pergunta com resposta
         } else if (pergunta.getId_pergunta() > 0) {
             RespostaDAO respDAO = new RespostaDAO();
-            Resposta resposta = respDAO.obter(pergunta.getId_pergunta());
-
-            return resposta.getTexto().toString();
+           try{
+            Resposta resposta = respDAO.obterRespostaPorID(pergunta.getId_pergunta());
+            return resposta.getTexto();
+           }catch(NullPointerException e){
+               JOptionPane.showMessageDialog(null, "Pergunta não encontrada\n"+e.toString());
+           }
+            
         }
         return "WTF";
     }
