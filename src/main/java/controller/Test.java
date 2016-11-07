@@ -4,6 +4,7 @@ import java.sql.Blob;
 import java.util.List;
 import java.util.Scanner;
 import jdk.nashorn.internal.objects.NativeArray;
+import model.dao.PerguntaDAO;
 import model.dao.RespostaDAO;
 import model.domain.Pergunta;
 import model.domain.Resposta;
@@ -31,6 +32,9 @@ public class Test {
                     break;
                 case 2:
                     listarPerguntas();
+                    break;
+                case 3:
+                    responder();
                     break;
                 default:
                     System.out.println("Opção não implementada");
@@ -66,17 +70,18 @@ public class Test {
         Integer id = ler.nextInt();
         Pergunta pergunta = Brain.obterPerguntaPorID(id);
         
-        System.out.println("Pergunta: "+ pergunta.getFrase());
+        System.out.println("Pergunta: "+ pergunta.getFrase()+"\nResposta: ");
         String resp = ler.nextLine();
-        Resposta resposta = new Resposta(resp);
-        RespostaDAO respDAO = new RespostaDAO();
-        respDAO.incluir(resposta);
+        Resposta resposta = incResposta(resp);
+        
+        PerguntaDAO pergDAO = new PerguntaDAO();
+        pergunta.setResposta(resposta);
+        pergDAO.alterar(pergunta);
     }
-    public static void incResposta(){ // não terminado
+    public static Resposta incResposta(String resp){ // não terminado
+        System.out.println("Resposta: ");
         RespostaDAO respDAO = new RespostaDAO();
-        Scanner ler = new Scanner(System.in);
-        String texto = ler.nextLine();
-        Resposta resposta = new Resposta(texto);
-        respDAO.incluir(resposta);
+        Resposta resposta = respDAO.incluir(new Resposta(resp));
+        return resposta;
     }
 }
