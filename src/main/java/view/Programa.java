@@ -2,7 +2,7 @@ package view;
 
 public class Programa extends javax.swing.JFrame {
 
-    private final PaneFuncoes funcoes = new PaneFuncoes();
+    private PaneFuncoes funcoes = new PaneFuncoes();
     private boolean configAtiva = false;
 
     public Programa() {
@@ -23,24 +23,17 @@ public class Programa extends javax.swing.JFrame {
 
         panelPrincipal = new javax.swing.JPanel();
         lbImagem = new javax.swing.JLabel();
-        btConfig = new javax.swing.JButton();
         lbStatus = new javax.swing.JLabel();
         lbSinal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EMSoft bot");
         setBackground(new java.awt.Color(255, 0, 0));
-        setState(1);
-        getContentPane().setLayout(new java.awt.FlowLayout());
+        setExtendedState(6);
+
+        panelPrincipal.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         lbImagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/robocop.png"))); // NOI18N
-
-        btConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/settings.png"))); // NOI18N
-        btConfig.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btConfigActionPerformed(evt);
-            }
-        });
 
         lbStatus.setText("...");
 
@@ -52,62 +45,48 @@ public class Programa extends javax.swing.JFrame {
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lbImagem)
-                    .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addComponent(lbSinal)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbStatus)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(lbSinal)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbStatus)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbImagem)
                 .addContainerGap())
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addComponent(btConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lbSinal)
-                            .addComponent(lbStatus))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                        .addComponent(lbImagem)))
-                .addContainerGap())
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbSinal)
+                    .addComponent(lbStatus))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 239, Short.MAX_VALUE)
+                .addComponent(lbImagem))
         );
 
-        getContentPane().add(panelPrincipal);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(442, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfigActionPerformed
-
-        /**
-         * Bacalhau para dar auto-hide/show em Panel de Funcoes
-         */
-        if (!configAtiva) {
-            //btConfig.setText("<--");
-            this.add(funcoes);
-            funcoes.setVisible(true);
-            this.setSize(750, 350);
-            this.repaint();
-            configAtiva = true;
-        } else {
-            //btConfig.setText("-->");
-            funcoes.setVisible(false);   
-            this.setSize(300, 350);
-            this.repaint();
-            configAtiva = false;
-        }
-    }//GEN-LAST:event_btConfigActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btConfig;
     private javax.swing.JLabel lbImagem;
     private javax.swing.JLabel lbSinal;
     private javax.swing.JLabel lbStatus;

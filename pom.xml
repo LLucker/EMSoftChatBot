@@ -56,9 +56,11 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.38</version>
         </dependency>
-
-
-
+        <dependency>
+            <groupId>unknown.binary</groupId>
+            <artifactId>AbsoluteLayout</artifactId>
+            <version>SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <!-- CONSTRUCAO DO .JAR (EXECUTAVEL) COM DEPENDENCIAS -->
     <build>
