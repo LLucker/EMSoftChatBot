@@ -86,7 +86,7 @@ public class Programa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfigActionPerformed
-    
+
         /**
          * Bacalhau para dar auto-hide/show em Panel de Funcoes
          */

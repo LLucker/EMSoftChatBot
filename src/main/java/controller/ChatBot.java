@@ -24,18 +24,21 @@ public class ChatBot extends TelegramLongPollingBot {
     private static final Logger LOG = Logger.getLogger(ChatBot.class.getName());
     private static final Programa MYFRAME = new Programa();
     private static BotTelegram bot;
-    
+
     public static void main(String[] args) {
+        //Pega as configurações do bot
         PropertiesController properties = new PropertiesController();
         try {
             bot = properties.retornaConfiguracao();
         } catch (IOException ex) {
-          LOG.log(Level.SEVERE, "Não foi possível retornar as configurações do BOT");
+            LOG.log(Level.SEVERE, "Não foi possível retornar as configurações do BOT");
         }
+        //Instancia da API
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
+        //Abre a janela principal
         MYFRAME.setVisible(true);
         MYFRAME.setStatus("Inicializando...");
-        
+        //Coloca a bot online
         try {
             telegramBotsApi.registerBot(new ChatBot());
         } catch (TelegramApiException e) {
@@ -46,12 +49,13 @@ public class ChatBot extends TelegramLongPollingBot {
 
     }
 
+    //Retorna o token do bot
     @Override
     public String getBotToken() {
         return ChatBot.bot.getToken();
     }
 
-   //Executa quando o bot recebe uma mensagem de texto
+    //Executa quando o bot recebe uma mensagem de texto
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage()) {
@@ -61,57 +65,70 @@ public class ChatBot extends TelegramLongPollingBot {
             if (message.hasText()) {
                 String mensagem = message.getText();
                 String nome = message.getChat().getFirstName();
+                //Cria nova resposta à usuario
                 SendMessage sendMessageRequest = new SendMessage();
+                //Seta o alvo da resposta como o usuario que invocou
                 sendMessageRequest.setChatId(message.getChatId().toString());
-                
-                MYFRAME.setMensagem(">> "+nome+":"+mensagem + "\n");
+                //Live preview no painel
+                MYFRAME.setMensagem(">> " + nome + ":" + mensagem + "\n");
+                //Lista de saudações possiveis
                 List<String> iniciar = Arrays.asList("bom dia", "boa tarde", "boa noite", "oi",
-                                                     "ola", "olá", "hi", "hello");
+                        "ola", "olá", "hi", "hello", "koe", "koé");
 
-                //Inicio comandos
-                if (mensagem.equals("/info")) {
-                    comandoInfo(sendMessageRequest, message);
-                }
-                else if (mensagem.equals("/start")) {
-                    comandoStart(sendMessageRequest, message);
-                }
-                //Fim comandos
-
-                //Mensagem inicial
-                else if (iniciar.contains(mensagem.toLowerCase())) {
-                    sendMessageRequest.setText("Olá, "+nome+" qual é sua duvida?");
+                if (iniciar.contains(mensagem.toLowerCase())) {
+                    sendMessageRequest.setText("Olá, " + nome + " qual é sua duvida?");
                     enviarMensagem(sendMessageRequest);
                 } else {
-                    //Resposta padrão
-                    String resposta = Brain.consultarPergunta(mensagem);
-                    sendMessageRequest.setText(resposta);
-                    enviarMensagem(sendMessageRequest);
+                    switch (mensagem) {
+                        case "/info":
+                            comandoInfo(sendMessageRequest, message);
+                            break;
+                        case "/start":
+                            comandoStart(sendMessageRequest, message);
+                            break;
+                        default:
+                            String resposta = Brain.consultarPergunta(mensagem);
+                            if (!resposta.isEmpty()){
+                            sendMessageRequest.setText(resposta);
+                            enviarMensagem(sendMessageRequest);
+                            } else resposta = "Estou confuso";
+                            sendMessageRequest.setText(resposta);
+                            enviarMensagem(sendMessageRequest);
+                            break;
+                    }
                 }
-
             }
         }
     }
-    public void comandoInfo(SendMessage sendMessageRequest, Message message){
+
+    //Comando retorna informações sobre o usuario
+    public void comandoInfo(SendMessage sendMessageRequest, Message message) {
         sendMessageRequest.setText("Nome: " + message.getChat().getFirstName()
-                            + "\nSobrenome: " + message.getChat().getLastName()
-                            + "\nTitulo: " + message.getChat().getTitle()
-                            + "\nUser: " + message.getChat().getUserName()
-                            + "\nHashCode: " + message.getChat().hashCode()
-                            + "\nIdTelegram: " + message.getChat().getId());
+                + "\nSobrenome: " + message.getChat().getLastName()
+                + "\nTitulo: " + message.getChat().getTitle()
+                + "\nUser: " + message.getChat().getUserName()
+                + "\nHashCode: " + message.getChat().hashCode()
+                + "\nIdTelegram: " + message.getChat().getId());
         enviarMensagem(sendMessageRequest);
-    }
-    public void comandoStart(SendMessage sendMessageRequest, Message message){
-        sendMessageRequest.setText("Olá " + message.getChat().getFirstName()
-                            + ",\né um prazer falar com você, diga sua dúvida ou digite"
-                            + " ''/'' para ver os comandos disponíveis");
-        enviarMensagem(sendMessageRequest);
-    }
-    
-    public void enviarMensagem(SendMessage sendMessageRequest) {
-        try { sendMessage(sendMessageRequest); }
-        catch (TelegramApiException e) { /**/ }
     }
 
+    //Comando dado pelo usuario quando adiciona o bot
+    public void comandoStart(SendMessage sendMessageRequest, Message message) {
+        sendMessageRequest.setText("Olá " + message.getChat().getFirstName()
+                + ",\né um prazer falar com você, diga sua dúvida ou digite"
+                + " ''/'' para ver os comandos disponíveis");
+        enviarMensagem(sendMessageRequest);
+    }
+
+    //Metodo de envio de mensagem bot > usuario
+    public void enviarMensagem(SendMessage sendMessageRequest) {
+        try {
+            sendMessage(sendMessageRequest);
+        } catch (TelegramApiException e) {
+            /**/ }
+    }
+
+    //Retorna o User do bot
     @Override
     public String getBotUsername() {
         return ChatBot.bot.getUser();
