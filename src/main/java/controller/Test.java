@@ -1,7 +1,6 @@
 package controller;
 
 import java.util.List;
-import java.util.Scanner;
 import javax.swing.JOptionPane;
 import model.dao.PerguntaDAO;
 import model.dao.RespostaDAO;
@@ -38,6 +37,9 @@ public class Test {
                 case 4:
                     listarRespostas();
                     break;
+                case 5:
+                    apagarPergunta();
+                    break;
                 default:
                     JOptionPane.showMessageDialog(null, "Opção não implementada");
                     break;
@@ -59,10 +61,11 @@ public class Test {
 
             StringBuilder str = new StringBuilder();
             perguntas.stream().forEach((pergunta) -> {
+                if (pergunta.getFrase() != null){
                 str.append("ID:" + pergunta.getId_pergunta()
-                        + " Pergunta:" + (pergunta.getFrase() == null ? "" : pergunta.getFrase())
-                        + " Resposta:" + (pergunta.getResposta() == null ? "" : pergunta.getResposta().getTexto()) + "("+pergunta.getResposta().getId_resposta()+")\n");
-            });
+                        + " Pergunta:" + (pergunta.getFrase() == null ? "" : pergunta.getFrase()+"\n   ")
+                        + " Resposta:" + (pergunta.getResposta() == null ? "" : pergunta.getResposta().getTexto()) + "(ID:"+pergunta.getResposta().getId_resposta()+")\n");
+                }});
 
             JOptionPane.showMessageDialog(null, str.toString());
         } catch (NullPointerException e) {
@@ -111,6 +114,11 @@ public class Test {
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(null, "\nNão existe Respostas\n");
         }
+    }
+
+    private static void apagarPergunta() {
+        //int id = JOptionPane.showInputDialog(null, "Insira o id da pergunta");
+        //Brain.excluirPergunta(id);
     }
 
 }

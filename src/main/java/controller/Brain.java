@@ -24,9 +24,11 @@ public class Brain {
         if (pergunta == null) {
             pergunta = new Pergunta(frase);
             //Cadastra pergunta no BD
+            if (!pergunta.getFrase().isEmpty()){
             pergDAO.incluir(pergunta);
             return "Bem... nunca me perguntaram isso!\nnão sei responder agora,"
                     + " mas vou estudar isso, me pergunte novamente depois ;)";
+            }else return "Pergunta vazia";
         //Pergunta existe mas não tem resposta
         } else if ((pergunta.getResposta() == null)) {
             return "Já estou estudando isso!";
@@ -39,7 +41,7 @@ public class Brain {
            }
             
         }
-        return " ";
+        return "Houston we have a problem.";
     }
     
     //Retorna todas as perguntas cadastradas
