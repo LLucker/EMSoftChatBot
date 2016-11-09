@@ -13,7 +13,7 @@ import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 import org.telegram.telegrambots.logging.BotLogger;
-import view.Programa;
+import view.FormPrincipal;
 
 /**
  * @version 1.5
@@ -22,7 +22,7 @@ import view.Programa;
 public class ChatBot extends TelegramLongPollingBot {
 
     private static final Logger LOG = Logger.getLogger(ChatBot.class.getName());
-    private static final Programa MYFRAME = new Programa();
+    private static final FormPrincipal MYFRAME = new FormPrincipal();
     private static BotTelegram bot;
 
     public static void main(String[] args) {
