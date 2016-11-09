@@ -14,7 +14,6 @@ public class FormPrincipal extends javax.swing.JFrame {
     public FormPrincipal() {
         initComponents();
         jpnMenu.setVisible(false);
-        popularTabela();
     }
 
     public void setStatus(String msg) {
@@ -245,10 +244,9 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         if (!menuvisivel) {
-        jpnMenu.setVisible(true);
-        menuvisivel =  true;
-        }
-        else {
+            jpnMenu.setVisible(true);
+            menuvisivel = true;
+        } else {
             jpnMenu.setVisible(false);
             menuvisivel = false;
         }
@@ -282,10 +280,19 @@ public class FormPrincipal extends javax.swing.JFrame {
         PerguntaDAO perDAO = new PerguntaDAO();
         List<Pergunta> perguntas = perDAO.obterTodos();
         for (Pergunta pergunta : perguntas) {
-            if (pergunta!=null && pergunta.getFrase()!=null){
-                dm.addRow(new Object[]{pergunta.getId_pergunta(), pergunta.getFrase()});
-            } else JOptionPane.showMessageDialog(null, "Deu merda");
-        }
+            if (/*pergunta!=null && */pergunta.getFrase()!=null){
+           /* if (pergunta.getFrase() == null) {
+                pergunta.setFrase("null");
+            }
+            */
+            if (pergunta.getTema() == null) {
+                pergunta.setTema("null");
+            }
+            if (pergunta.getResposta().getTexto() == null) {
+                pergunta.getResposta().setTexto("null");
+            }
+           dm.addRow(new Object[]{pergunta.getId_pergunta(), pergunta.getFrase(), pergunta.getTema(), pergunta.getResposta().getTexto()});
+        }}
     }
 
 }

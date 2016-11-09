@@ -37,7 +37,8 @@ public class ChatBot extends TelegramLongPollingBot {
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
         //Abre a janela principal
         MYFRAME.setVisible(true);
-        MYFRAME.setStatus("Inicializando...");
+        MYFRAME.setStatus("Iniciando...[BD]");
+        MYFRAME.setStatus("Iniciando...[Service]");
         //Coloca a bot online
         try {
             telegramBotsApi.registerBot(new ChatBot());
