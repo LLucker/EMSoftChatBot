@@ -1,7 +1,8 @@
 package view;
 
 import java.util.List;
-import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.dao.PerguntaDAO;
 import model.domain.Pergunta;
@@ -44,6 +45,9 @@ public class FormPrincipal extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaPerguntas = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EMSoft bot");
@@ -105,7 +109,7 @@ public class FormPrincipal extends javax.swing.JFrame {
             jpnMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnMenuLayout.createSequentialGroup()
                 .addComponent(jButton2)
-                .addGap(6, 6, 6)
+                .addGap(0, 0, 0)
                 .addComponent(jButton4)
                 .addGap(6, 6, 6)
                 .addComponent(jButton5)
@@ -137,13 +141,9 @@ public class FormPrincipal extends javax.swing.JFrame {
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
                         .addComponent(lbSinal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelPrincipalLayout.createSequentialGroup()
-                                .addComponent(lbStatus)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel1)))))
+                        .addComponent(lbStatus)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)))
                 .addContainerGap())
         );
         panelPrincipalLayout.setVerticalGroup(
@@ -171,11 +171,11 @@ public class FormPrincipal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Pergunta", "Tema", "Resposta(ID)"
+                "ID", "Pergunta", "Resposta(ID)", "Tema"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -191,20 +191,43 @@ public class FormPrincipal extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabelaPerguntas);
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/businessman-with-doubts.png"))); // NOI18N
+        jLabel2.setText("Incluir");
+        jLabel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/businessman-with-doubts.png"))); // NOI18N
+        jLabel3.setText("Alterar");
+        jLabel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/businessman-with-doubts.png"))); // NOI18N
+        jLabel4.setText("Excluir");
+        jLabel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 254, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addGap(0, 0, 0)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("LSRobot", jPanel2);
+        jTabbedPane1.addTab("Perguntas", jPanel2);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -263,6 +286,9 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -277,22 +303,38 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     private void popularTabela() {
         DefaultTableModel dm = (DefaultTableModel) tabelaPerguntas.getModel();
+
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        tabelaPerguntas.getColumnModel().getColumn(0).setCellRenderer(esquerda);
+        tabelaPerguntas.getColumnModel().getColumn(0).setMaxWidth(50);
+        tabelaPerguntas.getColumnModel().getColumn(1).setCellRenderer(esquerda);
+        tabelaPerguntas.getColumnModel().getColumn(2).setCellRenderer(esquerda);
+        tabelaPerguntas.getColumnModel().getColumn(3).setCellRenderer(esquerda);
+        tabelaPerguntas.getColumnModel().getColumn(3).setMinWidth(180);
+        tabelaPerguntas.getColumnModel().getColumn(3).setMaxWidth(180);
+
         PerguntaDAO perDAO = new PerguntaDAO();
         List<Pergunta> perguntas = perDAO.obterTodos();
         for (Pergunta pergunta : perguntas) {
-            if (/*pergunta!=null && */pergunta.getFrase()!=null){
-           /* if (pergunta.getFrase() == null) {
-                pergunta.setFrase("null");
+            if (pergunta.getFrase() != null) {
+                if (pergunta.getTema() == null) {
+                    pergunta.setTema("null");
+                }
+                String sResposta = null;//(pergunta.getResposta().getTexto() == null ? "null" : pergunta.getResposta().getTexto());
+                if (pergunta.getResposta() == null) {
+                    sResposta = "null";
+                } else {
+                    sResposta = pergunta.getResposta().getTexto();
+                }
+                dm.addRow(new Object[]{pergunta.getId_pergunta(), pergunta.getFrase(), sResposta, pergunta.getTema()});
+
             }
-            */
-            if (pergunta.getTema() == null) {
-                pergunta.setTema("null");
-            }
-            if (pergunta.getResposta().getTexto() == null) {
-                pergunta.getResposta().setTexto("null");
-            }
-           dm.addRow(new Object[]{pergunta.getId_pergunta(), pergunta.getFrase(), pergunta.getTema(), pergunta.getResposta().getTexto()});
-        }}
+        }
     }
 
 }
