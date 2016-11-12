@@ -46,13 +46,25 @@ public class Brain {
         List<Pergunta> perguntas = pergDAO.obterTodos();
     return perguntas;
     }  
-    //Retorna todas as Respostas cadastradas
+    //Retorna a pergunta pelo ID
     public static Pergunta obterPerguntaPorID(Integer id_pergunta){
         PerguntaDAO pergDAO = new PerguntaDAO();
         Pergunta pergunta = pergDAO.obterPerguntaPorID(id_pergunta);
     return pergunta;
     }
-    //Retorna todas as perguntas cadastradas sem resposta
+    //Inclui uma pergunta no BD
+    public static void incluirPergunta(Pergunta pergunta){
+        PerguntaDAO pergDAO = new PerguntaDAO();
+        if (pergunta != null && !pergunta.getFrase().isEmpty()){
+            pergDAO.incluir(pergunta);
+        }
+    }
+    public static void alterarPergunta(Pergunta pergunta){
+        PerguntaDAO pergDAO = new PerguntaDAO();
+        if (pergunta != null && !pergunta.getFrase().isEmpty()){
+            pergDAO.alterar(pergunta);
+        }
+    }
     
     /*       Respostas      */
     public static List<Resposta> obterTodasRespostas(){

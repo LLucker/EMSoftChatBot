@@ -1,11 +1,14 @@
 package view;
 
+import controller.Brain;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.dao.PerguntaDAO;
 import model.domain.Pergunta;
+import model.domain.Resposta;
 
 public class FormPrincipal extends javax.swing.JFrame{
 
@@ -48,6 +51,7 @@ public class FormPrincipal extends javax.swing.JFrame{
         tabelaPendentes = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -122,7 +126,7 @@ public class FormPrincipal extends javax.swing.JFrame{
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         jPanel5Layout.setVerticalGroup(
@@ -140,7 +144,7 @@ public class FormPrincipal extends javax.swing.JFrame{
 
             },
             new String [] {
-                "ID", "Pergunta", "Resposta(ID)", "Tema"
+                "ID", "Pergunta", "Resposta", "Tema"
             }
         ) {
             Class[] types = new Class [] {
@@ -163,11 +167,9 @@ public class FormPrincipal extends javax.swing.JFrame{
             tabelaPerguntas.getColumnModel().getColumn(0).setMinWidth(50);
             tabelaPerguntas.getColumnModel().getColumn(0).setPreferredWidth(50);
             tabelaPerguntas.getColumnModel().getColumn(0).setMaxWidth(50);
-            tabelaPerguntas.getColumnModel().getColumn(1).setHeaderValue("Pergunta");
             tabelaPerguntas.getColumnModel().getColumn(3).setMinWidth(180);
             tabelaPerguntas.getColumnModel().getColumn(3).setPreferredWidth(180);
             tabelaPerguntas.getColumnModel().getColumn(3).setMaxWidth(180);
-            tabelaPerguntas.getColumnModel().getColumn(3).setHeaderValue("Tema");
         }
 
         btnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/businessman-with-doubts.png"))); // NOI18N
@@ -238,21 +240,35 @@ public class FormPrincipal extends javax.swing.JFrame{
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/businessman-with-doubts.png"))); // NOI18N
         jLabel1.setText("Responder");
         jLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/businessman-with-doubts.png"))); // NOI18N
         jLabel11.setText("Excluir");
         jLabel11.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jLabel11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/businessman-with-doubts.png"))); // NOI18N
+        jLabel2.setText("Atribuir Resposta");
+        jLabel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel11)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,7 +276,8 @@ public class FormPrincipal extends javax.swing.JFrame{
                 .addGap(0, 0, 0)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel11))
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel2))
                 .addGap(2, 2, 2)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
@@ -365,7 +382,7 @@ public class FormPrincipal extends javax.swing.JFrame{
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel10))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE))
                 .addGap(0, 0, 0))
         );
         jPanel4Layout.setVerticalGroup(
@@ -431,11 +448,16 @@ public class FormPrincipal extends javax.swing.JFrame{
         incluirPergunta();// TODO add your handling code here:
     }//GEN-LAST:event_btnIncluirMouseClicked
 
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        responderPergunta();
+    }//GEN-LAST:event_jLabel1MouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnIncluir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -501,7 +523,13 @@ public class FormPrincipal extends javax.swing.JFrame{
     }
 
     private void incluirPergunta() {
+        String duvida = JOptionPane.showInputDialog(null, "Insira a pergunta");
+    }
 
+    private void responderPergunta() {
+        String sResposta = JOptionPane.showInputDialog(null, "Insira a resposta");
+        Resposta resposta = new Resposta(sResposta);
+        Brain.alterarPergunta(pergunta);
     }
 
 }
