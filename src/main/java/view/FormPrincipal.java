@@ -529,7 +529,7 @@ public class FormPrincipal extends javax.swing.JFrame{
     private void responderPergunta() {
         String sResposta = JOptionPane.showInputDialog(null, "Insira a resposta");
         Resposta resposta = new Resposta(sResposta);
-        Brain.alterarPergunta(pergunta);
+//        Brain.alterarPergunta(pergunta);
     }
 
 }
