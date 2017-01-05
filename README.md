@@ -1,9 +1,11 @@
-# LSRobot 
-Robô de chat para Telegram usando:<br>
---<b>Java</b> 8(Maven, JPA, Hibernate)<br>
---<b>MySQL 5</b><br>
---<b>Api</b>: github.com/rubenlagus/TelegramBots<br>
-  
-Finalidade:<br>
---Robô de chat para dar suporte
---com as conversas de forma <b>automatica</b> e dinâmica<br>
+Chatbot com aprendizagem assistida:
+sempre que é detectada uma questão ainda não respondida o bot cria uma pendencia
+para que o operador possa designar a resposta adequada, tornando desta forma este bot
+uma exelente ferramenta para atendimento à o cliente em primeira instancia.
+
+Técnologias neste projeto:
+Java 8
+- Maven, JPA e Hibernate,
+MySQL 5
+TelegramBots Api
+- [Link](https://github.com/rubenlagus/TelegramBots)
