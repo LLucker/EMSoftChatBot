@@ -4,9 +4,7 @@ para que o operador possa designar a resposta adequada, tornando desta forma est
 uma exelente ferramenta para atendimento à o cliente em primeira instancia.<br>
 
 **Tecnologias neste projeto:**<br>
-Java<br>
-- Maven, JPA e Hibernate,<br>
-MySQL 5<br>
-
-TelegramBots Api<br>
-- [Link](https://github.com/rubenlagus/TelegramBots)
+- Java (netbeans)<br>
+- Maven, JPA e Hibernate<br>
+- MySQL 5<br>
+- [API TelegramBots](https://github.com/rubenlagus/TelegramBots)
